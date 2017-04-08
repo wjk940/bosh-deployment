@@ -48,11 +48,11 @@
     password: ((vcenter_password))
     datacenters:
     - name: ((vcenter_dc))
-      vm_folder: ((vcenter_vms))
-      template_folder: ((vcenter_templates))
+      vm_folder: ((vcenter_dir_vms))
+      template_folder: ((vcenter_dir_templates))
       datastore_pattern: ((vcenter_ds))
       persistent_datastore_pattern: ((vcenter_ds))
-      disk_path: ((vcenter_disks))
+      disk_path: ((vcenter_dir_disks))
       clusters:
       - ((vcenter_cluster)): {}
 

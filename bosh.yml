@@ -22,10 +22,10 @@ networks:
 - name: default
   type: manual
   subnets:
-  - range: ((internal_cidr))
-    gateway: ((internal_gw))
-    static: [((internal_ip))]
-    dns: [8.8.8.8]
+  - range: ((director_cidr))
+    gateway: ((director_gw))
+    static: [((director_ip))]
+    dns: ((director_dns))
 
 instance_groups:
 - name: bosh
@@ -40,7 +40,7 @@ instance_groups:
   persistent_disk_pool: disks
   networks:
   - name: default
-    static_ips: [((internal_ip))]
+    static_ips: [((director_ip))]
   properties:
     nats:
       address: 127.0.0.1
@@ -54,7 +54,7 @@ instance_groups:
       database: bosh
       adapter: postgres
     blobstore:
-      address: ((internal_ip))
+      address: ((director_ip))
       port: 25250
       provider: dav
       director:
@@ -91,20 +91,16 @@ instance_groups:
         password: ((hm_password))
         ca_cert: ((director_ssl.ca))
       resurrector_enabled: true
-    ntp: &ntp
-    - time1.google.com
-    - time2.google.com
-    - time3.google.com
-    - time4.google.com
+    ntp: ((network_ntp))
     agent:
-      mbus: nats://nats:((nats_password))@((internal_ip)):4222
+      mbus: nats://nats:((nats_password))@((director_ip)):4222
 
 cloud_provider:
-  mbus: https://mbus:((mbus_bootstrap_password))@((internal_ip)):6868
+  mbus: https://mbus:((mbus_bootstrap_password))@((director_ip)):6868
   properties:
     agent: {mbus: "https://mbus:((mbus_bootstrap_password))@0.0.0.0:6868"}
     blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
-    ntp: *ntp
+    ntp: ((network_ntp))
 
 variables:
 - name: admin_password
@@ -130,5 +126,5 @@ variables:
   type: certificate
   options:
     ca: default_ca
-    common_name: ((internal_ip))
-    alternative_names: [((internal_ip))]
+    common_name: ((director_ip))
+    alternative_names: [((director_fqdn))]

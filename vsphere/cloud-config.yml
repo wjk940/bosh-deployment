@@ -15,14 +15,19 @@ azs:
 vm_types:
 - name: default
   cloud_properties:
-    cpu: 2
+    cpu: 1
     ram: 1024
-    disk: 3240
+    disk: 4096
 - name: large
   cloud_properties:
     cpu: 2
     ram: 4096
-    disk: 30_240
+    disk: 32_768
+- name: xlarge
+  cloud_properties:
+    cpu: 2
+    ram: 8192
+    disk: 131_072
 
 disk_types:
 - name: default
@@ -34,11 +39,12 @@ networks:
 - name: default
   type: manual
   subnets:
-  - range: ((internal_cidr))
-    gateway: ((internal_gw))
+  - range: ((director_cidr))
+    gateway: ((director_gw))
     azs: [z1, z2, z3]
-    dns: [8.8.8.8]
-    reserved: []
+    dns: ((director_dns))
+    reserved: ((network_reserved_ips))
+    static: ((network_static_ips))
     cloud_properties:
       name: ((network_name))
 
