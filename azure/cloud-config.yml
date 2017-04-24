@@ -6,10 +6,16 @@ azs:
 vm_types:
 - name: default
   cloud_properties:
-    instance_type: Standard_D1
+    instance_type: Standard_D1_v2
 - name: large
   cloud_properties:
-    instance_type: Standard_D3
+    instance_type: Standard_D2_v2
+- name: xlarge
+  cloud_properties:
+    instance_type: Standard_D3_v2
+- name: xxlarge
+  cloud_properties:
+    instance_type: Standard_D4_v2
 
 disk_types:
 - name: default
@@ -21,15 +27,15 @@ networks:
 - name: default
   type: manual
   subnets:
-  - range: ((internal_cidr))
-    gateway: ((internal_gw))
+  - range: ((director_cidr))
+    gateway: ((director_gw))
     azs: [z1, z2, z3]
-    dns: [168.63.129.16]
-    reserved: [((internal_gw))/30]
+    dns: [((director_dns))]
+    reserved: [((director_gw))/29]
     cloud_properties:
-      virtual_network_name: ((vnet_name))
-      subnet_name: ((subnet_name))
-      security_group: ((security_group))
+      virtual_network_name: ((azure_vnet_name))
+      subnet_name: ((azure_subnet_name))
+      security_group: ((azure_nsg))
 - name: vip
   type: vip
 

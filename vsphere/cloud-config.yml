@@ -42,7 +42,7 @@ networks:
   - range: ((director_cidr))
     gateway: ((director_gw))
     azs: [z1, z2, z3]
-    dns: ((director_dns))
+    dns: [((director_dns))]
     reserved: ((network_reserved_ips))
     static: ((network_static_ips))
     cloud_properties:

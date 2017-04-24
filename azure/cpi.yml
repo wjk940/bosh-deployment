@@ -22,8 +22,8 @@
 - type: replace
   path: /networks/name=default/subnets/0/cloud_properties?
   value:
-    virtual_network_name: ((vnet_name))
-    subnet_name: ((subnet_name))
+    virtual_network_name: ((azure_virtual_network_name))
+    subnet_name: ((azure_subnet_name))
 
 # Enable registry job
 - type: replace
@@ -35,8 +35,8 @@
 - type: replace
   path: /instance_groups/name=bosh/properties/registry?
   value:
-    address: ((internal_ip))
-    host: ((internal_ip))
+    address: ((director_ip))
+    host: ((director_ip))
     db: # todo remove
       host: 127.0.0.1
       user: postgres
@@ -70,20 +70,20 @@
   path: /instance_groups/name=bosh/properties/azure?
   value: &cpi_conf
     environment: AzureCloud
-    subscription_id: ((subscription_id))
-    tenant_id: ((tenant_id))
-    client_id: ((client_id))
-    client_secret: ((client_secret))
-    resource_group_name: ((resource_group_name))
-    storage_account_name: ((storage_account_name))
-    default_security_group: ((default_security_group))
+    subscription_id: ((azure_subscription_id))
+    tenant_id: ((azure_tenant_id))
+    client_id: ((azure_client_id))
+    client_secret: ((azure_client_secret))
+    resource_group_name: ((azure_resource_group_name))
+    storage_account_name: ((azure_storage_account_name))
+    default_security_group: ((azure_bosh_nsg))
     ssh_user: vcap
     ssh_public_key: ((ssh.public_key))
 
 - type: replace
   path: /cloud_provider/ssh_tunnel?
   value:
-    host: ((internal_ip))
+    host: ((director_ip))
     port: 22
     user: vcap
     private_key: ((ssh.private_key))
