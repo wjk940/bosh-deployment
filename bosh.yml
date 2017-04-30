@@ -25,7 +25,7 @@ networks:
   - range: ((director_cidr))
     gateway: ((director_gw))
     static: [((director_ip))]
-    dns: [((director_dns))]
+    dns: ((director_dns))
 
 instance_groups:
 - name: bosh

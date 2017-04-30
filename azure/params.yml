@@ -11,23 +11,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.:
 # See the License for the specific language governing permissions and:
 # limitations under the License.:
-director_cidr:
-director_dns: []
-director_fqdn:
-director_gw:
-director_ip:
-director_name:
-network_name:
+#azure_client_id: 9b9a4174-3bdd-45f3-a070-89a4965dfd39
+azure_client_id: 
+azure_client_secret: 
+azure_bosh_nsg: 
+azure_resource_group_name: 
+azure_nsg: 
+azure_storage_account_name: 
+azure_subnet_name: 
+azure_subscription_id: 
+azure_tenant_id: 
+azure_vnet_name: 
+director_cidr: 10.0.0.0/24
+director_dns: [168.63.129.16, 8.8.8.8]
+director_fqdn: 10.0.0.8
+director_gw: 10.0.0.1
+director_ip: 10.0.0.8
+director_name: 
 network_ntp: [0.us.pool.ntp.org, 1.us.pool.ntp.org, 2.us.pool.ntp.org, 3.us.pool.ntp.org]
-network_reserved_ips: []
-network_static_ips: []
-vcenter_cluster:
-vcenter_dc:
-vcenter_dir_disks:
-vcenter_dir_templates:
-vcenter_dir_vms:
-vcenter_ds:
-vcenter_ip:
-vcenter_password:
-vcenter_rp: 
-vcenter_user:

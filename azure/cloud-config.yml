@@ -30,7 +30,7 @@ networks:
   - range: ((director_cidr))
     gateway: ((director_gw))
     azs: [z1, z2, z3]
-    dns: [((director_dns))]
+    dns: ((director_dns))
     reserved: [((director_gw))/29]
     cloud_properties:
       virtual_network_name: ((azure_vnet_name))
