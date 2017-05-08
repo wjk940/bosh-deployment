@@ -94,8 +94,7 @@ bosh create-env bosh.yml \
   -v default_security_groups=[test] \
   -v private_key=test \
   -v subnet_id=test \
-  -v credhub_dev_key=test \
-  -v file_path_to_credhub_release=test
+  -v credhub_encryption_password=test
 
 echo "- AWS with UAA for BOSH development"
 bosh deploy bosh.yml \
@@ -309,6 +308,22 @@ bosh create-env bosh.yml \
   -v vcenter_vms=test \
   -v vcenter_disks=test \
   -v vcenter_cluster=test
+
+echo "- vCloud"
+bosh create-env bosh.yml \
+  -o vcloud/cpi.yml \
+  --state=$vars_store_prefix \
+  --vars-store $(mktemp ${vars_store_prefix}.XXXXXX) \
+  -v director_name=test \
+  -v internal_cidr=test \
+  -v internal_gw=test \
+  -v internal_ip=test \
+  -v network_name=test \
+  -v vcloud_url=test \
+  -v vcloud_user=test \
+  -v vcloud_password=test \
+  -v vcd_org=test \
+  -v vcd_name=test
 
 echo "- vSphere (cloud-config)"
 bosh update-cloud-config vsphere/cloud-config.yml \
