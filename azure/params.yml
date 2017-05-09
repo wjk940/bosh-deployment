@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.:
 # See the License for the specific language governing permissions and:
 # limitations under the License.:
-#azure_client_id: 9b9a4174-3bdd-45f3-a070-89a4965dfd39
+
 azure_client_id: 
 azure_client_secret: 
 azure_bosh_nsg: 
