@@ -100,7 +100,7 @@ echo "- AWS with UAA for BOSH development"
 bosh deploy bosh.yml \
   -o aws/cpi.yml \
   -o uaa.yml \
-  -o bosh-dev.yml \
+  -o misc/bosh-dev.yml \
   --vars-store $(mktemp ${vars_store_prefix}.XXXXXX) \
   -v director_name=test \
   -v internal_ip=test \
@@ -110,16 +110,18 @@ bosh deploy bosh.yml \
   -v default_key_name=test \
   -v default_security_groups=[test]
 
-echo "- AWS with external db"
+echo "- AWS with external db and dns"
 bosh create-env bosh.yml \
   -o aws/cpi.yml \
-  -o external-db.yml \
+  -o misc/external-db.yml \
+  -o misc/dns.yml \
   --state=$vars_store_prefix \
   --vars-store $(mktemp ${vars_store_prefix}.XXXXXX) \
   -v director_name=test \
   -v internal_cidr=test \
   -v internal_gw=test \
   -v internal_ip=test \
+  -v internal_dns=[8.8.8.8] \
   -v access_key_id=test \
   -v secret_access_key=test \
   -v az=test \
@@ -232,7 +234,7 @@ bosh create-env bosh.yml \
 echo "- GCP with external db"
 bosh create-env bosh.yml \
   -o gcp/cpi.yml \
-  -o external-db.yml \
+  -o misc/external-db.yml \
   --state=$vars_store_prefix \
   --vars-store $(mktemp ${vars_store_prefix}.XXXXXX) \
   -v director_name=test \
@@ -353,6 +355,7 @@ bosh create-env bosh.yml \
 
 echo "- Azure (custom-environment)"
 bosh create-env bosh.yml \
+  -o azure/cpi.yml \
   -o azure/custom-environment.yml \
   --state=$vars_store_prefix \
   --vars-store $(mktemp ${vars_store_prefix}.XXXXXX) \
@@ -418,6 +421,20 @@ bosh create-env bosh.yml \
   -v internal_ip=10.245.0.10 \
   -v docker_host=tcp://192.168.50.8:4243 \
   -v docker_tls=ca_cert \
+  -v network=net3
+
+echo "- Docker via UNIX sock"
+bosh create-env bosh.yml \
+  -o docker/cpi.yml \
+  -o docker/unix-sock.yml \
+  -o jumpbox-user.yml \
+  --state=$vars_store_prefix \
+  --vars-store $(mktemp ${vars_store_prefix}.XXXXXX) \
+  -v director_name=docker \
+  -v internal_cidr=10.245.0.0/16 \
+  -v internal_gw=10.245.0.1 \
+  -v internal_ip=10.245.0.10 \
+  -v docker_host=unix:///var/run/docker.sock \
   -v network=net3
 
 echo "- Docker (cloud-config)"
